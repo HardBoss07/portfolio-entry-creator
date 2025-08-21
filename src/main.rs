@@ -1,3 +1,6 @@
+mod enums;
+
+use enums::*;
 use clap::Parser;
 use std::io::{BufReader, Write};
 use std::fs::File;

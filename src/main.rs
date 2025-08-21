@@ -1,4 +1,5 @@
 mod enums;
+mod lexer;
 
 use enums::*;
 use clap::Parser;

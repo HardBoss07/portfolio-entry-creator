@@ -35,8 +35,9 @@ fn main() -> io::Result<()> {
         .join("\n");
 
     let mut lex = Lexer::new(text);
+    let tokens = lex.tokenize();
 
-    println!("{} o, {} i", args.output_file.display(), args.input_file.display());
+    println!("Tokens: {:?}", tokens);
 
     Ok(())
 }

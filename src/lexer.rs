@@ -13,14 +13,33 @@ impl Lexer {
         }
     }
 
+    fn inc(&mut self) {
+        self.position += 1;
+    }
+
     fn next_token(&mut self) -> Option<Token> {
         let chars: Vec<char> = self.text.chars().collect();
         
         while self.position < chars.len() {
             let current = chars[self.position];
             
-            if "#-`".contains(current) {
+            if current.is_whitespace() {
+                self.inc();
+                continue;
+            }
+
+            if "#-`()/".contains(current) {
+                self.inc();
                 return Some(Token::Symbol(current));
+            }
+
+            if current.is_alphanumeric() {
+                let start = self.position;
+                while self.position < chars.len() && chars[self.position] != '\n' {
+                    self.inc();
+                }
+
+                return Some(Token::Text((&self.text[start..self.position]).to_string()))
             }
         }
 

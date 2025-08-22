@@ -1,9 +1,15 @@
 pub enum Token {
-    Heading(usize, String),             // Level + Text
-    Paragraph(String),                  // Text
-    Button(bool, String),               // isRepoOrDownload? + Link
-    CodeBlock(String, String),          // Language + Text
-    SectionMarker(SectionDescriptor),   // Splitter for sections
+    Symbol(char),                                   // Specific chars (# for example)
+    Text(String),                                   // Longer Strings of text
+}
+
+pub enum ASTNode {
+    Document(Vec<ASTNode>),                         // Whole Tree
+    Section(SectionDescriptor, Vec<ASTNode>),       // Section for different parts
+    Heading(usize, String),                         // Level + Text
+    Paragraph(String),                              // Text
+    Code(String, String),                           // Language + Text
+    Button(ButtonType, String),                     // Button type + Link
 }
 
 pub enum SectionDescriptor {
@@ -12,10 +18,7 @@ pub enum SectionDescriptor {
     END,
 }
 
-pub enum ASTNode {
-    Document(Vec<ASTNode>),             // Whole Tree
-    Section(Vec<ASTNode>),              // Section for different parts
-    Heading(usize, String),             // Level + Text
-    Paragraph(String),                  // Text
-    Code(String, String),               // Language + Text
+pub enum ButtonType {
+    REPOSITORY,
+    DOWNLOAD,
 }
